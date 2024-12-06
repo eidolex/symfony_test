@@ -45,7 +45,7 @@ class SessionRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('s');
 
-        if (isset($criteria['type'])) {
+        if (isset($criteria['type']) && $criteria['type']) {
             $qb->andWhere('s.type = :type')
                 ->setParameter('type', $criteria['type']);
         }
