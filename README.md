@@ -1,9 +1,38 @@
+# Matchable Checkout
+
+This project implements a checkout page for Matchable, allowing clients to book personal training sessions for padel, fitness, or tennis.
+
+## Architecture and Design Choices
+
+1. Frontend:
+   - Vue.js: Chosen for its simplicity and reactivity, making it easy to create dynamic user interfaces.
+   - Tailwind CSS: Used for rapid UI development with utility-first classes.
+
+2. Backend:
+   - Symfony (PHP): Provides a robust framework for building scalable and maintainable applications.
+   - Doctrine ORM: Used for database interactions and entity management.
+
+3. Database:
+   - MySQL: Chosen for its easier to maintain and upgrade
+
+4. API:
+   - RESTful API design for communication between frontend and backend.
+
+## Setup Instructions
+
+### Prerequisites
+
+- PHP 8.0 or higher
+- Composer
+- Node.js and npm
+- MYSQL
+
 ### Backend Setup
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/matchable-checkout.git
-   cd matchable-checkout
+   git clone https://github.com/eidolex/symfony_test.git
+   cd symfony_test
    ```
 
 2. Install PHP dependencies:
@@ -44,7 +73,7 @@
 
 3. Start the Vue development server:
    ```
-   npm run serve
+   npm run dev
    ```
 
 4. Open your browser and navigate to `http://localhost:8080` to view the application.
