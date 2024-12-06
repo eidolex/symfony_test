@@ -16,6 +16,26 @@ class SessionController extends AbstractController
     {
         $sessions = $sessionRepository->filter($request->query->all());
 
-        return $this->json($sessions, 200, []);
+        $data = [];
+
+        foreach ($sessions as $session) {
+            $date = $session->getTime()->format('Y-m-d');
+            if (!isset($data[$date])) {
+                $data[$date] = [
+                    'types' => [],
+                    'sessions' => []
+                ];
+            }
+
+            if (!isset($data[$date]['types'][$session->getType()->value])) {
+                $data[$date]['types'][$session->getType()->value] = 0;
+            }
+            $data[$date]['types'][$session->getType()->value]++;
+            $data[$date]['sessions'][] = $session;
+        }
+
+        return $this->json([
+            'data' => $data
+        ], 200, []);
     }
 }

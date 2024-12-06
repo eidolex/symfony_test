@@ -61,7 +61,7 @@ class SessionRepository extends ServiceEntityRepository
     public function findByIds(array $ids): array
     {
         return $this->createQueryBuilder('s')
-            ->where($this->expr()->in('s.id', ':ids'))
+            ->andWhere('s.id IN (:ids)')
             ->setParameter('ids', $ids)
             ->getQuery()
             ->getResult();

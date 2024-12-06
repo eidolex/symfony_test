@@ -22,6 +22,7 @@ class SessionFixtures extends Fixture
             $session->setTime(new \DateTimeImmutable(sprintf('+%d days', $randomDay)));
             $session->setIsAvailable(true);
             $session->setType($randomType);
+            $session->setDuration(random_int(30, 120));
             $manager->persist($session);
         }
 

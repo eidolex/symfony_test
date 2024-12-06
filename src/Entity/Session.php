@@ -25,6 +25,9 @@ class Session
     private ?\DateTimeInterface $time = null;
 
     #[ORM\Column]
+    private ?int $duration = null;
+
+    #[ORM\Column]
     private ?float $price = null;
 
     #[ORM\Column(name: 'is_available')]
@@ -75,6 +78,17 @@ class Session
     public function setTime(\DateTimeInterface $time): static
     {
         $this->time = $time;
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): static
+    {
+        $this->duration = $duration;
         return $this;
     }
 
