@@ -34,7 +34,9 @@ export const useCartStore = defineStore('cart',  () => {
             method: "POST",
             body: JSON.stringify({
                 ...form.value,
-                items: items.value,
+                items: items.value.map((session) => ({
+                    id: session.id,
+                })),
             }),
         })
 
