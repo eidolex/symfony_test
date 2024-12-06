@@ -102,22 +102,21 @@
                     ? 'flex size-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white'
                     : undefined
                 "
-                >{{ day.date.split("-").pop().replace(/^0/, "") }}
+                >{{ day.date.split("-").pop()?.replace(/^0/, "") }}
               </time>
               <ol v-if="day.events.length > 0" class="mt-2">
-                <li v-for="event in day.events.slice(0, 2)" :key="event.id">
-                  <a :href="event.href" class="group flex">
+                <li v-for="event in day.events.slice(0, 2)" :key="event.name">
+                  <p class="group flex">
                     <p
                       class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600"
                     >
                       {{ event.name }}
                     </p>
-                    <time
-                      :datetime="event.datetime"
+                    <p
                       class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
                       >{{ event.count }}
-                    </time>
-                  </a>
+                  </p>
+                </p>
                 </li>
                 <li v-if="day.events.length > 2" class="text-gray-500">
                   + {{ day.events.length - 2 }} more
@@ -134,14 +133,15 @@
               type="button"
               :class="[
                 day.isCurrentMonth ? 'bg-white' : 'bg-gray-50',
-                (day.isSelected || day.isToday) && 'font-semibold',
-                day.isSelected && 'text-white',
-                !day.isSelected && day.isToday && 'text-indigo-600',
-                !day.isSelected &&
+                day.isToday && 'font-semibold',
+                day.date == selectedDate ||
+                  (day.date == selectedDate && 'text-white'),
+                !(day.date == selectedDate) && day.isToday && 'text-indigo-600',
+                !(day.date == selectedDate) &&
                   day.isCurrentMonth &&
                   !day.isToday &&
                   'text-gray-900',
-                !day.isSelected &&
+                !(day.date == selectedDate) &&
                   !day.isCurrentMonth &&
                   !day.isToday &&
                   'text-gray-500',
@@ -151,13 +151,13 @@
               <time
                 :datetime="day.date"
                 :class="[
-                  day.isSelected &&
+                  day.date == selectedDate &&
                     'flex size-6 items-center justify-center rounded-full',
-                  day.isSelected && day.isToday && 'bg-indigo-600',
-                  day.isSelected && !day.isToday && 'bg-gray-900',
+                  day.date == selectedDate && day.isToday && 'bg-indigo-600',
+                  day.date == selectedDate && !day.isToday && 'bg-gray-900',
                   'ml-auto',
                 ]"
-                >{{ day.date.split("-").pop().replace(/^0/, "") }}
+                >{{ day.date.split("-").pop()?.replace(/^0/, "") }}
               </time>
               <span class="sr-only">{{ day.events.length }} events</span>
               <span
@@ -299,6 +299,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import moment from "moment";
 import { ref, computed } from "vue";
 import { useCartStore } from "~/stores/cart";
+import type { Session } from "~/types/session";
 
 const types = ref(["padel", "tennis", "fitness"]);
 const cartStore = useCartStore();
@@ -333,7 +334,7 @@ const days = computed(() => {
 
   while (day.isSameOrBefore(lastDay)) {
     const date = day.format("YYYY-MM-DD");
-    const session = data.value.data[date];
+    const session = data.value?.data[date];
     const events = [];
 
     if (session) {
@@ -358,7 +359,7 @@ const days = computed(() => {
 });
 
 const sessions = computed(() => {
-  const items = data.value.data[selectedDate.value]?.sessions || [];
+  const items = data.value?.data[selectedDate.value]?.sessions || [];
   if (items.length === 0) {
     return items;
   }
