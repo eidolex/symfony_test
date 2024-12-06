@@ -27,10 +27,9 @@ export const useCartStore = defineStore('cart',  () => {
     }
 
     async function book() {
-
-        // if (items.value.length == 0) {
-        //     alert("Please add some items to the cart");
-        // }
+        if (items.value.length == 0) {
+            alert("Please add some items to the cart");
+        }
         const result = await useFetch("http://localhost:8000/api/v1/bookings", {
             method: "POST",
             body: JSON.stringify({
@@ -48,7 +47,7 @@ export const useCartStore = defineStore('cart',  () => {
             return;
         }
 
-        if (result.data.value) {
+        if (result.data.value && typeof result.data.value === 'object' && "message" in result.data.value) {
             alert(result.data.value.message);
             items.value = [];
             form.value = {
