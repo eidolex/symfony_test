@@ -29,6 +29,7 @@ export const useCartStore = defineStore('cart',  () => {
     async function book() {
         if (items.value.length == 0) {
             alert("Please add some items to the cart");
+            return;
         }
         const result = await useFetch("http://localhost:8000/api/v1/bookings", {
             method: "POST",
