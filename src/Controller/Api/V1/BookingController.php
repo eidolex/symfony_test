@@ -32,7 +32,6 @@ class BookingController extends AbstractController
                 new Assert\All([
                     new Assert\Collection([
                         'id' => new Assert\NotBlank(),
-                        'quantity' => new Assert\NotBlank()
                     ])
                 ])
             ]
