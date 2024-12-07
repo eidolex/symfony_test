@@ -104,16 +104,16 @@
               <ol v-if="day.events.length > 0" class="mt-2">
                 <li v-for="event in day.events.slice(0, 2)" :key="event.name">
                   <p class="group flex">
-                    <p
+                    <span
                       class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600"
                     >
                       {{ event.name }}
-                    </p>
-                    <p
+                    </span>
+                    <span
                       class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
                       >{{ event.count }}
+                    </span>
                   </p>
-                </p>
                 </li>
                 <li v-if="day.events.length > 2" class="text-gray-500">
                   + {{ day.events.length - 2 }} more
