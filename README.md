@@ -6,14 +6,14 @@ This project implements a checkout page for Matchable, allowing clients to book 
 
 1. Frontend:
    - Nuxt.js (easier to setup then vue.js as it includes tools where vue.js need manual setup)
-   - Tailwind CSS: for rapid development (as doesn't need to think css class name)
+   - Tailwind CSS: for rapid development (as doesn't need to think css class name and better browser support)
 
 2. Backend:
    - Symfony (PHP): Provides a robust framework for building scalable and maintainable applications.
    - Doctrine ORM: Used for database interactions and entity management.
 
 3. Database:
-   - MySQL: Chosen for its easier to maintain and upgrade
+   - MySQL: Chosen for its easier to maintain and upgrade (unlike postgres which is painful to upgrade and permission management is a mess and current project don't benefit that much using postgres)
 
 4. API:
    - RESTful API design for communication between frontend and backend.
