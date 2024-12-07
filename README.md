@@ -20,6 +20,28 @@ This project implements a checkout page for Matchable, allowing clients to book 
 
 ## Setup Instructions
 
+### Docker setup
+
+1. build docker image
+```bash
+docker compose build
+```
+
+2. Run docker image
+```bash
+docker compose up -d
+```
+
+3. Setup database
+```bash
+docker compose exec backend-php php bin/console doctrine:migrations:migrate
+docker compose exec backend-php php bin/console doctrine:fixtures:load
+```
+
+4. Open to the frontend with url [http://localhost:3000](http://localhost:3000)
+
+5. To check the mail open url [http://localhost:8025](http://localhost:8025)
+
 ### Prerequisites
 
 - PHP 8.0 or higher
