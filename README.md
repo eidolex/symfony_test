@@ -42,7 +42,7 @@ This project implements a checkout page for Matchable, allowing clients to book 
 
 3. Set up the database:
    - Create a new MYSQL database
-   - Copy `.env` to `.env.local` and update the `DATABASE_URL` with your database credentials
+   - Copy `.env` to `.env.local` and update the `DATABASE_URL` with your database credentials, if you want to test email update `MAILER_DSN=smtp://testing:********bab9@sandbox.smtp.mailtrap.io:2525`
 
 4. Run migrations:
    ```bash
