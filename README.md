@@ -76,7 +76,7 @@ This project implements a checkout page for Matchable, allowing clients to book 
    npm run dev
    ```
 
-4. Open your browser and navigate to `http://localhost:8080` to view the application.
+4. Open your browser and navigate to `http://localhost:3000` to view the application.
 
 ## Sample .env File
 
@@ -84,7 +84,7 @@ This project implements a checkout page for Matchable, allowing clients to book 
 APP_ENV=dev
 APP_SECRET=your_app_secret_here
 
-DATABASE_URL="postgresql://user:password@127.0.0.1:5432/matchable_checkout?serverVersion=13&charset=utf8"
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/database_name?serverVersion=8.0.32&charset=utf8mb4"
 ```
 
-Replace `user`, `password`, and the database name with your actual PostgreSQL credentials.
+Replace `user`, `password`, and the `database_name` with your actual MYSQL credentials.
