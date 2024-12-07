@@ -5,8 +5,8 @@ This project implements a checkout page for Matchable, allowing clients to book 
 ## Architecture and Design Choices
 
 1. Frontend:
-   - Vue.js: Chosen for its simplicity and reactivity, making it easy to create dynamic user interfaces.
-   - Tailwind CSS: Used for rapid UI development with utility-first classes.
+   - Nuxt.js (easier to setup then vue.js as it includes tools where vue.js need manual setup)
+   - Tailwind CSS: for rapid development (as doesn't need to think css class name)
 
 2. Backend:
    - Symfony (PHP): Provides a robust framework for building scalable and maintainable applications.
