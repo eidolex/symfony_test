@@ -1,0 +1,63 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    container_name: frontend
+    ports:
+      - "${FRONTEND_APP_PORT:-3000}:80"
+    env_file:
+      - .env.docker
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: nginx
+    ports:
+      - "${BACKEND_APP_PORT:-8000}:80"
+    depends_on:
+      - backend-php
+    env_file:
+      - .env.docker
+  backend-php:
+    build:
+      context: .
+      dockerfile: ./docker/backend-php/Dockerfile
+    container_name: backend-php
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+    depends_on:
+      mail:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+  db:
+    image: mysql:8
+    container_name: db
+    # ports:
+    #   - "3306:3306"
+    env_file:
+      - .env.docker
+    volumes:
+      - db-mysql:/var/lib/mysql
+    command: mysqld --innodb_use_native_aio=0
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  mail:
+    container_name: mail
+    image: axllent/mailpit:latest
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - default
+
+volumes:
+  db-mysql:
+    driver: local
