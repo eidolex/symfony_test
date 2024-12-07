@@ -16,53 +16,38 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
-    //    /**
-    //     * @return Session[] Returns an array of Session objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Session
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
-
+    /**
+     * @param array<int,mixed> $criteria
+     */
     public function filter(array $criteria = []): array
     {
-        $qb = $this->createQueryBuilder('s');
+        $qb = $this->createQueryBuilder("s");
 
-        if (isset($criteria['type']) && $criteria['type']) {
-            $qb->andWhere('s.type = :type')
-                ->setParameter('type', $criteria['type']);
+        if (isset($criteria["type"]) && $criteria["type"]) {
+            $qb->andWhere("s.type = :type")->setParameter(
+                "type",
+                $criteria["type"]
+            );
         }
 
-        $qb->andWhere('s.isAvailable = :isAvailable')
-            ->setParameter('isAvailable', true);
+        $qb->andWhere("s.isAvailable = :isAvailable")->setParameter(
+            "isAvailable",
+            true
+        );
 
-        $qb->orderBy('s.time', 'ASC');
+        $qb->orderBy("s.time", "ASC");
 
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @param array<int, int> $ids
+     */
     public function findByIds(array $ids): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.id IN (:ids)')
-            ->setParameter('ids', $ids)
+        return $this->createQueryBuilder("s")
+            ->andWhere("s.id IN (:ids)")
+            ->setParameter("ids", $ids)
             ->getQuery()
             ->getResult();
     }
