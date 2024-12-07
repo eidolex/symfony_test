@@ -13,6 +13,7 @@ class BookingDto
         #[Assert\NotBlank] public string $name,
         #[Assert\NotBlank, Assert\Email] public string $email,
         #[Assert\NotBlank] public string $phone,
+        #[Assert\NotBlank] public bool $terms,
         #[
             Assert\Count(min: 1),
             Assert\All([
