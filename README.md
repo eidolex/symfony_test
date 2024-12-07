@@ -107,6 +107,9 @@ APP_ENV=dev
 APP_SECRET=your_app_secret_here
 
 DATABASE_URL="mysql://user:password@127.0.0.1:3306/database_name?serverVersion=8.0.32&charset=utf8mb4"
+
+MAILER_DSN=smtp://'smtp_username':'smtp_password'@smtp_host:smtp_port
 ```
 
 Replace `user`, `password`, and the `database_name` with your actual MYSQL credentials.
+Replace `smtp_username`, `smtp_password`, `smtp_host` and the `smtp_port` with your smtp provider.
