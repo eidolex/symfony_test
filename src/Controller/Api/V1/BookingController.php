@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BookingController extends AbstractController
 {
@@ -18,7 +17,7 @@ class BookingController extends AbstractController
     public function store(
         #[MapRequestPayload(acceptFormat: "json")] BookingDto $bookingDto,
         EntityManagerInterface $entityManager,
-        SessionRepository $sessionRepository,
+        SessionRepository $sessionRepository
     ): JsonResponse {
         $booking = new Booking();
         $booking->setName($bookingDto->name);
@@ -58,7 +57,5 @@ class BookingController extends AbstractController
         $entityManager->flush();
 
         return $this->json(["message" => "Booking created successfully"], 201);
-
-        return $this->json([]);
     }
 }
