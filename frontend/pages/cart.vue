@@ -17,8 +17,8 @@
           <div class="flex flex-col justify-between space-y-4">
             <div class="space-y-1 text-sm font-medium">
               <h3 class="text-gray-900">
-                {{ moment(item.time).format("YYYY-MM-DD HH:mm") }} -
-                {{ item.duration }} minutes
+                {{ moment(item.time).format("YYYY-MM-DD HH:mm") }}
+                - {{ item.duration }} minutes
               </h3>
               <p class="text-gray-500">{{ item.type }} ({{ item.trainer }})</p>
               <p class="text-gray-900">${{ item.price }}</p>
@@ -112,6 +112,7 @@
           </div>
 
           <button
+            :disabled="isLoading"
             @click="onBook"
             type="button"
             class="mt-6 w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -144,6 +145,16 @@ const isLoading = ref(false);
 const cartStore = useCartStore();
 
 async function onBook() {
-  await cartStore.book();
+  if (isLoading.value) {
+    return;
+  }
+  try {
+    isLoading.value = true;
+    await cartStore.book();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isLoading.value = false;
+  }
 }
 </script>
