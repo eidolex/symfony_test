@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class BookingController extends AbstractController
@@ -17,7 +19,8 @@ class BookingController extends AbstractController
     public function store(
         #[MapRequestPayload(acceptFormat: "json")] BookingDto $bookingDto,
         EntityManagerInterface $entityManager,
-        SessionRepository $sessionRepository
+        SessionRepository $sessionRepository,
+        MailerInterface $mailer
     ): JsonResponse {
         $booking = new Booking();
         $booking->setName($bookingDto->name);
@@ -55,6 +58,15 @@ class BookingController extends AbstractController
 
         $entityManager->persist($booking);
         $entityManager->flush();
+
+        $email = (new Email())
+            ->from("sandaraion@gmail.com")
+            ->to($bookingDto->email)
+            ->subject("You have successfully booked a session")
+            ->text("You have successfully booked a session")
+            ->html("<p>You have successfully booked a session</p>");
+
+        $mailer->send($email);
 
         return $this->json(["message" => "Booking created successfully"], 201);
     }
